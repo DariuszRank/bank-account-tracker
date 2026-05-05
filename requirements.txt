@@ -1,0 +1,5 @@
+# Baza danych
+# (sqlite3 jest wbudowany w Pythona)
+
+# Parsowanie dat
+python-dateutil==2.8.2

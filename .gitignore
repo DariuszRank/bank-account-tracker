@@ -1,0 +1,43 @@
+# Baza danych (NIE wysyłamy na GitHub)
+*.db
+*.sqlite
+*.sqlite3
+
+# Środowisko wirtualne Python
+.venv/
+venv/
+env/
+
+# Pliki tymczasowe Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Pliki IDE (PyCharm)
+.idea/
+*.iml
+
+# Pliki systemowe Windows
+Thumbs.db
+desktop.ini
+
+# Pliki systemowe macOS
+.DS_Store
+
+# Importowane pliki CSV (opcjonalnie - możesz zakomentować jeśli chcesz je wysłać)
+data/imports/*.csv
+
+# Pliki testowe (opcjonalnie)
+test_*.py
+
+# Logi i cache
+*.log
+.pytest_cache/
+.coverage
+
+# Pliki konfiguracyjne z hasłami (na przyszłość)
+config_local.py
+secrets.py
+.env
