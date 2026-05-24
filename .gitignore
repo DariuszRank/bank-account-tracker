@@ -26,7 +26,7 @@ desktop.ini
 # Pliki systemowe macOS
 .DS_Store
 
-# Importowane pliki CSV (opcjonalnie - możesz zakomentować jeśli chcesz je wysłać)
+# Importowane pliki CSV
 data/imports/*.csv
 
 # Pliki testowe (opcjonalnie)
