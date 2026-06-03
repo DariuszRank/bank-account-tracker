@@ -33,6 +33,7 @@ class Transaction:
     payment_method: Optional[str] = None
     category_name: Optional[str] = None
     balance_after: Optional[float] = None
+    commission: Optional[float] = None
     notes: Optional[str] = None
     source_file: Optional[str] = None
 
@@ -46,14 +47,21 @@ class Transaction:
 
     def __str__(self):
         """Czytelna reprezentacja transakcji"""
+        commission_str = f" (prowizja: {self.commission:.2f})" if self.commission else ""
         return (f"{self.transaction_date} | {self.amount:>10.2f} {self.currency_code} | "
                 f"{self.description[:50]}")
+
+    def total_impact(self) -> float:
+        """Zwraca całkowity wpływ na konto (kwota + prowizja)"""
+        return self.amount + (self.commission or 0)
 
     def to_dict(self):
         """Konwertuje transakcję do słownika (przydatne przy exportach)"""
         return {
             'date': self.transaction_date.isoformat() if self.transaction_date else None,
             'amount': self.amount,
+            'commission': self.commission,
+            'total_impact': self.total_impact(),
             'description': self.description,
             'platform': self.platform_name,
             'account': self.account_name,

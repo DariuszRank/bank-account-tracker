@@ -85,6 +85,7 @@ def create_database():
             transaction_type_id INTEGER NOT NULL,
             payment_method_id INTEGER,
             amount DECIMAL(15, 2) NOT NULL,
+            commission DECIMAL(15, 2) DEFAULT 0,
             currency_id INTEGER NOT NULL,
             category_id INTEGER,
             description TEXT,
@@ -146,6 +147,8 @@ def create_database():
         ('Wymiana walut',),
         ('Gotówka',),
         ('Polecenie zapłaty',),
+        ('Zlecenie stałe',),
+        ('Wpłata gotówkowa',),
         ('Inne',),
     ]
     cursor.executemany(
@@ -182,6 +185,8 @@ def create_database():
         ('Remont/Mieszkanie',),
         ('Auto',),
         ('Dziecko',),
+        ('Promocje bankowe',),
+        ('Prowizje bankowe',),
     ]
 
     cursor.executemany(

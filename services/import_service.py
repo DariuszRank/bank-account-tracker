@@ -4,6 +4,7 @@ Serwis importu transakcji z plików CSV
 
 from typing import List, Dict
 from parsers.citibank_parser import CitibankParser
+from parsers.credit_agricole_parser import CreditAgricoleParser
 from db.repositories import save_transaction
 from models.transaction import Transaction
 
@@ -17,6 +18,7 @@ class ImportService:
         # Słownik parserów dla różnych banków
         self.parsers = {
             'citibank': CitibankParser(),
+            'credit_agricole': CreditAgricoleParser(),
         }
 
     def import_file(self, file_path: str, bank_name: str, account_name: str = None) -> Dict:

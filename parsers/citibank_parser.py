@@ -78,6 +78,7 @@ class CitibankParser(BaseParser):
                         transaction_type=transaction_type,
                         payment_method=payment_method,
                         balance_after=None,  # Citibank nie podaje salda
+                        commission=None,
                         notes=None,
                         source_file=source_file
                     )

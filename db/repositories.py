@@ -320,14 +320,17 @@ def save_transaction(transaction: Transaction) -> int:
     if transaction.category_name:
         category_id = get_category_id(transaction.category_name)
 
+    # Commission - jeśli None to 0
+    commission = transaction.commission or 0
+
     # 5. Wstaw transakcję do bazy
     query = """
-        INSERT INTO transactions (
-            account_id, transaction_date, transaction_type_id, payment_method_id,
-            amount, currency_id, category_id, description, balance_after,
-            notes, source_file, import_hash
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    """
+           INSERT INTO transactions (
+               account_id, transaction_date, transaction_type_id, payment_method_id,
+               amount, commission, currency_id, category_id, description, balance_after,
+               notes, source_file, import_hash
+           ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+       """
 
     params = (
         account_id,
@@ -335,6 +338,7 @@ def save_transaction(transaction: Transaction) -> int:
         transaction_type_id,
         payment_method_id,
         transaction.amount,
+        commission,
         currency_id,
         category_id,
         transaction.description,
