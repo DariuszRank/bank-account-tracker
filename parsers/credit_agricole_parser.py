@@ -72,12 +72,13 @@ class CreditAgricoleParser(BaseParser):
 
             for row_num, row in enumerate(csv_reader, start=2):  # start=2 bo wiersz 1 to nagłówki
                 try:
-                    # Parsuj podstawowe dane
-                    date_str = row.get('Data operacji', '').strip()
+                    # Parsuj datę księgowania (z godziną)
+                    date_str = row.get('Data księgowania', '').strip()
                     if not date_str:
                         continue  # Pomiń puste wiersze
 
-                    transaction_date = datetime.strptime(date_str, '%d.%m.%Y').date()
+                    # Data księgowania ma format: DD.MM.YYYY GG:MM:SS
+                    transaction_date = datetime.strptime(date_str, '%d.%m.%Y %H:%M:%S')
 
                     # Parsuj kwotę
                     amount_str = row.get('Kwota', '').strip()
@@ -123,7 +124,7 @@ class CreditAgricoleParser(BaseParser):
                     print(f"⚠ Błąd w wierszu {row_num}: {e}")
                     continue
 
-        print(f"✓ Sparsowano {len(transactions)} transakcji z pliku {source_file}")
+        print(f" Sparsowano {len(transactions)} transakcji z pliku {source_file}")
         return transactions
 
     def _parse_ca_amount(self, amount_str: str) -> float:

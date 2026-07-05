@@ -81,7 +81,7 @@ def create_database():
         CREATE TABLE IF NOT EXISTS transactions (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             account_id INTEGER NOT NULL,
-            transaction_date DATE NOT NULL,
+            transaction_date DATETIME NOT NULL,
             transaction_type_id INTEGER NOT NULL,
             payment_method_id INTEGER,
             amount DECIMAL(15, 2) NOT NULL,

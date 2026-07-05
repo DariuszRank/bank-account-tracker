@@ -245,6 +245,7 @@ def generate_import_hash(transaction: Transaction, account_id: int) -> str:
     - data transakcji
     - kwota
     - opis
+    - saldo po transakcji (jeśli dostępne)
 
     Args:
         transaction: Obiekt Transaction
@@ -259,6 +260,7 @@ def generate_import_hash(transaction: Transaction, account_id: int) -> str:
         f"{transaction.transaction_date.isoformat()}|"
         f"{transaction.amount:.2f}|"
         f"{transaction.description}"
+        f"{transaction.balance_after:.2f}" if transaction.balance_after is not None else "NULL"
     )
 
     # Generujemy hash MD5

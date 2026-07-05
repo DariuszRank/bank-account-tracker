@@ -55,8 +55,8 @@ class CitibankParser(BaseParser):
                     description = row[1].strip('"').strip("'").strip()
                     amount_str = row[2].strip('"').strip("'")
 
-                    # Parsuj datę
-                    transaction_date = datetime.strptime(date_str, '%d/%m/%Y').date()
+                    # Parsuj datę (Citibank nie ma czasu, dodajemy 00:00:00)
+                    transaction_date = datetime.strptime(date_str, '%d/%m/%Y')
 
                     # Parsuj kwotę
                     amount = self._clean_amount(amount_str)

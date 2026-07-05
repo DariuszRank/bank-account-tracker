@@ -3,7 +3,7 @@ Model transakcji
 """
 
 from dataclasses import dataclass
-from datetime import date
+from datetime import datetime
 from typing import Optional
 
 
@@ -19,7 +19,7 @@ class Transaction:
     """
 
     # Podstawowe dane
-    transaction_date: date
+    transaction_date: datetime
     amount: float
     description: str
 

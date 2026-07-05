@@ -52,8 +52,8 @@ class ImportService:
         parser = self.parsers[bank_name]
 
         # Parsuj plik
-        print(f"\n📄 Parsowanie pliku: {file_path}")
-        print(f"🏦 Bank: {bank_name}")
+        print(f"\n Parsowanie pliku: {file_path}")
+        print(f" Bank: {bank_name}")
 
         if account_name:
             transactions = parser.parse(file_path, account_name)
@@ -61,7 +61,7 @@ class ImportService:
             transactions = parser.parse(file_path)
 
         # Importuj transakcje
-        print(f"\n💾 Importowanie do bazy danych...")
+        print(f"\n Importowanie do bazy danych...")
         result = self._import_transactions(transactions)
 
         # Wyświetl podsumowanie
@@ -94,13 +94,23 @@ class ImportService:
                     stats['imported'] += 1
                 else:
                     stats['duplicates'] += 1
+                    # Loguj duplikaty
+                    print(f"Duplikat: {transaction.transaction_date} | "
+                          f"{transaction.amount:>10.2f} {transaction.currency_code} | "
+                          f"{transaction.description[:60]}")
+
 
             except Exception as e:
+
                 stats['errors'] += 1
-                print(f"⚠ Błąd przy zapisie transakcji: {e}")
+                print(f"! Blad przy zapisie transakcji: {e}")
                 print(f"   Transakcja: {transaction}")
+                import traceback
+                traceback.print_exc()
+                raise
 
         return stats
+
 
     def _print_summary(self, stats: Dict):
         """
@@ -110,12 +120,12 @@ class ImportService:
             stats: Statystyki importu
         """
         print("\n" + "=" * 70)
-        print("📊 PODSUMOWANIE IMPORTU")
+        print(" PODSUMOWANIE IMPORTU")
         print("=" * 70)
         print(f"Wszystkich transakcji w pliku:  {stats['total']}")
-        print(f"✓ Zaimportowano nowych:         {stats['imported']}")
-        print(f"⊘ Pominięto duplikatów:         {stats['duplicates']}")
-        print(f"✗ Błędów:                       {stats['errors']}")
+        print(f" Zaimportowano nowych:         {stats['imported']}")
+        print(f" Pominięto duplikatów:         {stats['duplicates']}")
+        print(f" Błędów:                       {stats['errors']}")
         print("=" * 70)
 
         if stats['imported'] > 0:
@@ -123,7 +133,7 @@ class ImportService:
         elif stats['duplicates'] == stats['total']:
             print("ℹ Wszystkie transakcje już istnieją w bazie")
         else:
-            print("⚠ Import zakończony z błędami")
+            print("! Import zakończony z błędami")
 
         print("=" * 70)
 
